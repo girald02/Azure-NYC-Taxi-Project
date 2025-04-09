@@ -1,0 +1,51 @@
+===========================================================================================================================================
+✅✅✅✅ Phase 2 databrikcs - Silver Layer
+
+databricks have a write conditions
+
+Create an application or other is services principles
+
+Bridge to connect databricks to azure
+Microsoft Entra ID 
+App Registration which is used for to access or grant the databricks to access azure environtment it contains the details of unique key that will be used on connection
+
+Then bridge to give permision the databricks to grant permission to write and update data , in datalake
+storage account ->>> I AM  ->>> Add Role  ->>>  storage blob data contributor ---> then select the application(connection in databricks) that you will use
+
+Then adding databricks on resorices , select the project resouce group  
+add some details or workspace
+price tier will be always : premium or use trial
+
+Databrikcs have a dedicated resource group that for only for it. THen as a data eng. we dont touch it leave what it is
+
+Config:
+Databricks runtime: version 14.3 LTS
+Uncheck photon
+
+Node Type
+Standard_DS3_v2
+Terminate after 20 mins
+
+Microsfot ENtra ID
+save the application ID:
+directory tenant id
+
+then create an secret then create an SEcret ID:
+3 things that connect to databirkcs 
+secret_id = 21cc9f27-f11e-474b-9085-b88e69afc3f8
+app_id = 283ac5bd-b294-42b0-83ad-44c47ae7ca22
+tenant_ id = 76df7be4-e1a7-4803-8ff6-f189921ae595
+
+spark.conf.set("fs.azure.account.auth.type.storeacnycproject02.dfs.core.windows.net", "OAuth")
+spark.conf.set("fs.azure.account.oauth.provider.type.storeacnycproject02.dfs.core.windows.net", "org.apache.hadoop.fs.azurebfs.oauth2.ClientCredsTokenProvider")
+spark.conf.set("fs.azure.account.oauth2.client.id.storeacnycproject02.dfs.core.windows.net", "283ac5bd-b294-42b0-83ad-44c47ae7ca22")
+spark.conf.set("fs.azure.account.oauth2.client.secret.storeacnycproject02.dfs.core.windows.net", "21cc9f27-f11e-474b-9085-b88e69afc3f8")
+spark.conf.set("fs.azure.account.oauth2.client.endpoint.storeacnycproject02.dfs.core.windows.net", "https://login.microsoftonline.com/76df7be4-e1a7-4803-8ff6-f189921ae595/oauth2/token")
+
+
+recursiveFileLookup() - It will automatically get the all raw file data in sub directory and other directory that under the main directory
+df_trip_data = spark.read.format("parquet")\
+                .option("header", "true")\
+                .option("inferSchema", "true")\
+                .option('recursiveFileLookup' , "true")\
+                .load("abfss://bronze@storeacnycproject02.dfs.core.windows.net/green_tripdata_2023") 

@@ -1,0 +1,52 @@
+✅✅✅✅ Phase 3 delta Lake - Gold Layer
+
+
+external tables vs managed tables
+
+Silver layer data transfer to gold layer butt delta format
+will be using external tables
+
+
+Flow will be:
+Silver Layer -> DataFrames -> Write in delta format -> then transfer it to gold layer -> and up of that it will create an delta tables
+
+
+Variables incorporate:
+
+df_trip = spark.read.format('parquet')\
+                .option('inferSchema',True)\
+                .option('header',True)\
+                .load(f'{silver}/trip_2023_data')
+
+
+Delta as a table:
+df_trip.write.format('delta') \
+        .mode('append') \
+        .saveAsTable('gold.trip_data')
+
+
+_delta_log - know ans transactional logs
+json under delta_logs - all update , insert ,delete , will be save on  delta logs
+
+
+Time Travel on delta lake syntax:
+RESTORE gold.trip_zone TO VERSION AS OF 0
+
+
+Connection databricks on powerbi use "power connect" or it on the market places
+
+Manual getting the access token:
+Go to settings - > Developer - > Acess token - > generate new  - > copy the token and use it
+
+
+
+Overall summmary:
+Phase 1: how can we dynamically get the raw file from HTTP API (foreach , if state condition  , then save it on parquet format to bronze layer)
+Phase 2: I full the data and perform databrikcs transformation and i store the output into silver layer
+Phase 3: I read the data from silver layer using databricks and create an delta tables and save the file into delta format with versioning and time traveling of data whenvever whats all transaction that made on those data.
+
+lastly : Connection of databricks to power bi using power connect / market place . A plugin that automatically connect the data however it need a token / login authorization
+
+Security: I use microsoft entra and create an application that will link the auzre datalake to databricks with a permission of read and update.
+
+

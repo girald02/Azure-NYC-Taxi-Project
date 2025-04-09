@@ -1,0 +1,42 @@
+Azure End To End Project NYC
+
+Raw file Source:
+https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page
+
+Reference:
+https://github.com/anshlambagit/NYC-TAXI-DE-Project/tree/main/Raw%20Data
+
+Raw file Static:
+https://d37ci6vzurychx.cloudfront.net/trip-data/green_tripdata_2023-01.parquet
+
+
+
+✅✅✅✅ Phase 1
+Data architecture
+using tools
+
+HTTP api (parquet file )- DATA FACTORY - DATA LAKE (Bronze layer) - DATABRICKS (SILVER LAYER) - DATALAKE (SILVER LAYAER) - DATALATE USING DELTA LAKE (GOLD LAYER) - REPORT POWER BI
+
+Resource Group - Resource
+Data factory 
+databricks
+delta lake in data lake
+power bi
+Security manage
+
+to handle the HTTP parquet file dynamically i implement foreach loop that will get the dynamically month of each raw file in the based url.
+i've uset(d an parameterize data using "@{datase).p_month}" 
+
+Forache - sequential check box
+
+insside the loop the copy data is there so that if the forach run it will automatically increament the number based on the data set i've provide dynamic content:
+@item()
+
+
+if condition expression:
+@greater(@item() , 9) 
+
+then i expose in if condition whenever theres a condition on pipeline that needed.
+
+instead of creating a lot of copy data which is not sustainable being an efficeint data engineer.
+
