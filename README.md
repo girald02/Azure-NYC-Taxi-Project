@@ -6,6 +6,28 @@ This project follows the **Medallion Architecture** (Bronze → Silver → Gold)
 
 ---
 
+## ❓ Problem
+
+Organizations face challenges with:
+- Ingesting raw external data
+- Transforming messy datasets
+- Structuring data for analytics
+- Securing access between services
+- Building reliable dashboards
+
+---
+
+## ✅ Solution
+
+This project addresses those problems by:
+- 🚀 **Ingestion**: Azure Data Factory pulls monthly data dynamically into the **Bronze** layer.
+- ⚙️ **Transformation**: Azure Databricks + PySpark clean and enrich data in the **Silver** layer.
+- 🧠 **Storage**: Delta Lake provides versioned, queryable data in the **Gold** layer.
+- 🔐 **Security**: Microsoft Entra ID secures access via OAuth and App Registration.
+- 📊 **Visualization**: Power BI connects to Databricks to display insights on dashboards.
+
+---
+
 ## 🏗️ Architecture Overview
 
 ![Azure NYC Taxi Project Architecture](https://raw.githubusercontent.com/girald02/Azure-NYC-Taxi-Project/refs/heads/main/img_journey/Azure-NYC-Taxi-Project.jpg)
